@@ -13,11 +13,14 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 inputs = Vector2.zero;
     private bool grounded = false;
-    private bool jump = true;
+    private bool jump = false;
+    private bool facingLeft = true;
+    private Animator anim;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -34,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     {
         inputs = Vector2.zero;
         inputs.x = Input.GetAxis("Horizontal");
+
+        anim.SetFloat("Velocity",Mathf.Abs(inputs.x*3));
         
         if (inputs.x * rb.velocity.x < maxSpeed)
         {
@@ -45,10 +50,26 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
         }
 
+        if (inputs.x > 0 && facingLeft)
+        {
+            Flip();
+        } else if (inputs.x < 0 && !facingLeft)
+        {
+            Flip();
+        }
+
         if (jump)
         {
             rb.AddForce(new Vector2(0, jumpForce));
             jump = false;
         }
+    }
+
+    void Flip()
+    {
+        facingLeft = !facingLeft;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
