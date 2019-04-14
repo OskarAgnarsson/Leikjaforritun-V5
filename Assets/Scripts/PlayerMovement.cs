@@ -49,14 +49,84 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
         }
-
+        //Þessi haugur af if statementum fyrir neðan leyfir player að skjóta í báðar áttir og hreyfast í báðar áttir á sama tíma
         if (inputs.x > 0 && facingLeft)
         {
-            Flip();
-        } else if (inputs.x < 0 && !facingLeft)
-        {
-            Flip();
+            if (Input.GetKey("right"))
+            {
+                Flip();
+            }
+            else if (Input.GetKey("left"))
+            {
+                ;
+            }
+            else
+            {
+                Flip();
+            }
         }
+        else if (inputs.x > 0 && !facingLeft)
+        {
+            if (Input.GetKey("left"))
+            {
+                Flip();
+            } else if (Input.GetKey("right"))
+            {
+                ;
+            } else
+            {
+                ;
+            }
+        }
+        else if (inputs.x < 0 && !facingLeft)
+        {
+            if (Input.GetKey("left"))
+            {
+                Flip();
+            } else if (Input.GetKey("right"))
+            {
+                ;
+            } else
+            {
+                Flip();
+            }
+        }
+        else if (inputs.x < 0 && facingLeft)
+        {
+            if (Input.GetKey("right"))
+            {
+                Flip();
+            } else if (Input.GetKey("left"))
+            {
+                ;
+            } else
+            {
+                ;
+            }
+        }
+        else if (inputs.x == 0 && facingLeft)
+        {
+            if (Input.GetKey("right"))
+            {
+                Flip();
+            }
+            else
+            {
+                ;
+            }
+        }
+        else if (inputs.x == 0 && !facingLeft)
+        {
+            if (Input.GetKey("left"))
+            {
+                Flip();
+            }
+            else
+            {
+                ;
+            }
+        }
+
 
         if (jump)
         {
