@@ -29,7 +29,7 @@ public class SpellCast : MonoBehaviour
     {
         if (Input.GetKeyDown("1"))
         {
-            if (spell == spellSelect[1])
+            if (spell == spellSelect[0])
             {
                 ;
             } else if (spell == spellSelect[1])
@@ -75,16 +75,17 @@ public class SpellCast : MonoBehaviour
     IEnumerator Cast(string spell, string facing)
     {
         allowFire = false;
+        yield return new WaitForSeconds(0.01f);
         if (spell == spellSelect[0])
         {
             Rigidbody2D spellInstance = Instantiate(fireballProjectile, projectileSpawn.position, projectileSpawn.rotation);
             if (facing=="left")
             {
-                spellInstance.AddForce(new Vector2(-200, 0));
+                spellInstance.AddForce(new Vector2(-350, 0));
             } else if (facing=="right")
             {
                 spellInstance.MoveRotation(180);
-                spellInstance.AddForce(new Vector2(200, 0));
+                spellInstance.AddForce(new Vector2(350, 0));
             }
 
         } else if (spell == spellSelect[1])
@@ -100,7 +101,7 @@ public class SpellCast : MonoBehaviour
                 spellInstance.AddForce(new Vector2(400, 0));
             }
         }
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.6f);
         allowFire = true;
     }
 }

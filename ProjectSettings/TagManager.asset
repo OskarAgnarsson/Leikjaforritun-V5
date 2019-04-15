@@ -9,6 +9,7 @@ TagManager:
   - ProjectileSpawn
   - FireballIdle
   - LightningBoltIdle
+  - LightningBolt
   layers:
   - Default
   - TransparentFX
