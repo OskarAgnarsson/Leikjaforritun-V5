@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 inputs = Vector2.zero;
     private bool grounded = false;
     private bool jump = false;
+    private int jumpCount = 0;
     private bool facingLeft = true;
     private Animator anim;
 
@@ -27,8 +28,18 @@ public class PlayerMovement : MonoBehaviour
     {
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
+        if (grounded)
+        {
+            jumpCount = 0;
+        }
+
         if (Input.GetKeyDown(KeyCode.W) && grounded)
         {
+            jumpCount += 1;
+            jump = true;
+        } else if (Input.GetKeyDown(KeyCode.W)  && jumpCount <= 1)
+        {
+            jumpCount += 1;
             jump = true;
         }
     }
