@@ -424,7 +424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 5
   moveForce: 200
-  jumpForce: 1000
+  jumpForce: 19
   groundCheck: {fileID: 1742183459448762298}
 --- !u!95 &2871974451687794833
 Animator:

@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float maxSpeed = 5f;
     public float moveForce = 365f;
-    public float jumpForce = 1000f;
+    public float jumpForce = 5f;
     public Transform groundCheck;
 
     private Rigidbody2D rb;
@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (jump)
         {
-            rb.AddForce(new Vector2(0, jumpForce));
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jump = false;
         }
     }
