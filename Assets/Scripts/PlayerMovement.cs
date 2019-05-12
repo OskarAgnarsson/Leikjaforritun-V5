@@ -7,25 +7,30 @@ public class PlayerMovement : MonoBehaviour
 
     public float maxSpeed = 5f;
     public float moveForce = 365f;
-    public float jumpForce = 5f;
+    public float jumpForce = 7f;
+    public bool grounded = false;
     public Transform groundCheck;
 
     private Rigidbody2D rb;
     private Vector2 inputs = Vector2.zero;
-    private bool grounded = false;
     private bool jump = false;
     private int jumpCount = 0;
     private bool facingLeft = true;
     private Animator anim;
+    private Menu menu;
+    private bool pause;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        menu = GameObject.FindGameObjectWithTag("IngameMenu").GetComponent<Menu>();
+        pause = menu.menuOpen;
     }
 
     void Update()
     {
+        pause = menu.menuOpen;
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
         if (grounded)
@@ -51,95 +56,96 @@ public class PlayerMovement : MonoBehaviour
 
         anim.SetFloat("Velocity",Mathf.Abs(inputs.x*3));
         
-        if (inputs.x * rb.velocity.x < maxSpeed)
+        if (inputs.x * rb.velocity.x < maxSpeed && !pause)
         {
             rb.AddForce(Vector2.right * inputs.x * moveForce);
         }
 
-        if (Mathf.Abs(rb.velocity.x) > maxSpeed)
+        if (Mathf.Abs(rb.velocity.x) > maxSpeed && !pause)
         {
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
         }
         //Þessi haugur af if statementum fyrir neðan leyfir player að skjóta í báðar áttir og hreyfast í báðar áttir á sama tíma
-        if (inputs.x > 0 && facingLeft)
-        {
-            if (Input.GetKey("right"))
+        if (!pause) {
+            if (inputs.x > 0 && facingLeft)
             {
-                Flip();
+                if (Input.GetKey("right"))
+                {
+                    Flip();
+                }
+                else if (Input.GetKey("left"))
+                {
+                    ;
+                }
+                else
+                {
+                    Flip();
+                }
             }
-            else if (Input.GetKey("left"))
+            else if (inputs.x > 0 && !facingLeft)
             {
-                ;
+                if (Input.GetKey("left"))
+                {
+                    Flip();
+                } else if (Input.GetKey("right"))
+                {
+                    ;
+                } else
+                {
+                    ;
+                }
             }
-            else
+            else if (inputs.x < 0 && !facingLeft)
             {
-                Flip();
+                if (Input.GetKey("left"))
+                {
+                    Flip();
+                } else if (Input.GetKey("right"))
+                {
+                    ;
+                } else
+                {
+                    Flip();
+                }
             }
-        }
-        else if (inputs.x > 0 && !facingLeft)
-        {
-            if (Input.GetKey("left"))
+            else if (inputs.x < 0 && facingLeft)
             {
-                Flip();
-            } else if (Input.GetKey("right"))
-            {
-                ;
-            } else
-            {
-                ;
+                if (Input.GetKey("right"))
+                {
+                    Flip();
+                } else if (Input.GetKey("left"))
+                {
+                    ;
+                } else
+                {
+                    ;
+                }
             }
-        }
-        else if (inputs.x < 0 && !facingLeft)
-        {
-            if (Input.GetKey("left"))
+            else if (inputs.x == 0 && facingLeft)
             {
-                Flip();
-            } else if (Input.GetKey("right"))
-            {
-                ;
-            } else
-            {
-                Flip();
+                if (Input.GetKey("right"))
+                {
+                    Flip();
+                }
+                else
+                {
+                    ;
+                }
             }
-        }
-        else if (inputs.x < 0 && facingLeft)
-        {
-            if (Input.GetKey("right"))
+            else if (inputs.x == 0 && !facingLeft)
             {
-                Flip();
-            } else if (Input.GetKey("left"))
-            {
-                ;
-            } else
-            {
-                ;
+                if (Input.GetKey("left"))
+                {
+                    Flip();
+                }
+                else
+                {
+                    ;
+                }
             }
-        }
-        else if (inputs.x == 0 && facingLeft)
-        {
-            if (Input.GetKey("right"))
-            {
-                Flip();
-            }
-            else
-            {
-                ;
-            }
-        }
-        else if (inputs.x == 0 && !facingLeft)
-        {
-            if (Input.GetKey("left"))
-            {
-                Flip();
-            }
-            else
-            {
-                ;
-            }
-        }
+    }
 
-
-        if (jump)
+        if (jump && !pause)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jump = false;

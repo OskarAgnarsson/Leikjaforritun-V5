@@ -10,6 +10,10 @@ public class BunnyMovement : MonoBehaviour
     private bool facingLeft = true;
     private Animator anim;
     private Vector2 velocity;
+    private float heightDiff;
+    private PlayerMovement playerMov;
+    private Menu menu;
+    private bool pause;
 
 
     void Start()
@@ -17,18 +21,23 @@ public class BunnyMovement : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        playerMov = player.GetComponent<PlayerMovement>();
+        menu = GameObject.FindGameObjectWithTag("IngameMenu").GetComponent<Menu>();
         velocity = new Vector2(1f, 0);
+        pause = menu.menuOpen;
     }
 
 
     void FixedUpdate()
     {
+        pause = menu.menuOpen;
+        heightDiff = transform.position.y - player.transform.position.y;
         dist = Vector2.Distance(transform.position,player.transform.position);
-        if (dist <= 11f)
+        if (dist <= 11f && dist > 1.1f && Mathf.Abs(heightDiff) < 1 && !pause)
         {
             if (transform.position.x - player.transform.position.x < 0)
             {
-                rb.MovePosition(rb.position + velocity * 2.5f * Time.fixedDeltaTime);
+                rb.MovePosition(rb.position + velocity * 3.25f * Time.fixedDeltaTime);
                 if (facingLeft)
                 {
                     Flip();
@@ -43,7 +52,35 @@ public class BunnyMovement : MonoBehaviour
                 }
                 anim.SetFloat("Speed", 1f);
             }
-        } else
+        } else if (dist <= 11f && dist > 1.1f && Mathf.Abs(heightDiff) < 7f && !playerMov.grounded && !pause)
+        {
+            if (transform.position.x - player.transform.position.x < 0)
+            {
+                rb.MovePosition(rb.position + velocity * 3.25f * Time.fixedDeltaTime);
+                if (facingLeft)
+                {
+                    Flip();
+                }
+                anim.SetFloat("Speed", 1f);
+            }
+            else if (transform.position.x - player.transform.position.x > 0)
+            {
+                rb.MovePosition(rb.position - velocity * 3.25f * Time.fixedDeltaTime);
+                if (!facingLeft)
+                {
+                    Flip();
+                }
+                anim.SetFloat("Speed", 1f);
+            }
+        }
+        else if (dist <= 11f && dist > 1.1f && Mathf.Abs(heightDiff) >= 1 && playerMov.grounded && !pause)
+        {
+            anim.SetFloat("Speed", 0);
+        } else if (dist > 11f | dist < 1.1f && !pause)
+        {
+            anim.SetFloat("Speed", 0);
+        }
+        else if (pause)
         {
             anim.SetFloat("Speed", 0);
         }

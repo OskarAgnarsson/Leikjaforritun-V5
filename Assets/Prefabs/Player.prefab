@@ -336,6 +336,9 @@ GameObject:
   - component: {fileID: 1742183458784592398}
   - component: {fileID: 2871974451687794833}
   - component: {fileID: 7555613434136067148}
+  - component: {fileID: 485066213}
+  - component: {fileID: 485066214}
+  - component: {fileID: 637681564}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -422,9 +425,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb4b2cce36376d408ffcbfa11950140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 5
+  maxSpeed: 7
   moveForce: 200
-  jumpForce: 19
+  jumpForce: 21
+  grounded: 0
   groundCheck: {fileID: 1742183459448762298}
 --- !u!95 &2871974451687794833
 Animator:
@@ -464,6 +468,46 @@ MonoBehaviour:
   fireballIdle: {fileID: 4826760831088394312}
   fireballProjectile: {fileID: 7597159072729690026, guid: 94f8a96380f554e44999788ef15aecf0,
     type: 3}
+--- !u!114 &485066213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742183458784592394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0df0b84c85ec1ce459271981913e5c7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 0
+--- !u!114 &485066214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742183458784592394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f647807afaa342a49ba8eeddeaf860ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mana: 0
+--- !u!114 &637681564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742183458784592394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804ba7a64a0ad804b819d095a80ec5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winScreen: {fileID: 0}
+  deathScreen: {fileID: 0}
 --- !u!1 &1742183459448762293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,7 +1212,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1870829119
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300010, guid: 22fe2e7923de94f4e96428a468be350b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1247,7 +1291,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1870829119
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300008, guid: 22fe2e7923de94f4e96428a468be350b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

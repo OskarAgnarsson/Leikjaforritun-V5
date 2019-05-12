@@ -14,10 +14,16 @@ public class SpellCast : MonoBehaviour
     private bool allowFire = true;
     private string spell;
     private PlayerMovement playerMov;
+    private PlayerMana playerMana;
+    private Menu menu;
+    private bool pause;
 
     void Start()
     {
         playerMov = GetComponent<PlayerMovement>();
+        playerMana = GetComponent<PlayerMana>();
+        menu = GameObject.FindGameObjectWithTag("IngameMenu").GetComponent<Menu>();
+        pause = menu.menuOpen;
 
         spellSelect = new string[2];
         spellSelect[0] = "Fireball";
@@ -27,7 +33,8 @@ public class SpellCast : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("1"))
+        pause = menu.menuOpen;
+        if (Input.GetKeyDown("1") && !pause)
         {
             if (spell == spellSelect[0])
             {
@@ -39,7 +46,7 @@ public class SpellCast : MonoBehaviour
                 fireballIdle.SetActive(true);
             }
         }
-        else if (Input.GetKeyDown("2"))
+        else if (Input.GetKeyDown("2") && !pause)
         {
             if (spell == spellSelect[1])
             {
@@ -56,18 +63,20 @@ public class SpellCast : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKey("left"))
+        if (Input.GetKey("left") && !pause)
         {
-            if (allowFire)
+            if (allowFire && playerMana.mana!=0)
             {
                 StartCoroutine(Cast(spell, "left"));
+                playerMana.mana -= 1;
             }
         }
-        else if (Input.GetKey("right"))
+        else if (Input.GetKey("right") && !pause)
         {
-            if (allowFire)
+            if (allowFire && playerMana.mana!=0)
             {
                 StartCoroutine(Cast(spell, "right"));
+                playerMana.mana -= 1;
             }
         }
     }

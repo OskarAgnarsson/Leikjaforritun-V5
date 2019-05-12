@@ -10,6 +10,10 @@ TagManager:
   - FireballIdle
   - LightningBoltIdle
   - LightningBolt
+  - HeartPickup
+  - CaveEntrance
+  - IngameMenu
+  - HelpMenu
   layers:
   - Default
   - TransparentFX
@@ -50,8 +54,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Cave2
+    uniqueID: 786732767
+    locked: 0
   - name: Player
     uniqueID: 1870829119
+    locked: 0
+  - name: Cave1
+    uniqueID: 532444399
     locked: 0
   - name: Ground
     uniqueID: 1231146313
