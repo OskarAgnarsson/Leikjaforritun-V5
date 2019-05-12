@@ -1,0 +1,86 @@
+*{
+	box-sizing: border-box;
+}
+header{
+	grid-area: header;
+}
+.topmenu{
+	display: flex;
+	grid-area: topmenu;
+}
+.content{
+	grid-area: content;
+}
+.sidebar{
+	grid-area: vinstri;
+}
+.sidebar2{
+	grid-area: haegri;
+}
+footer{
+	grid-area: footer;
+}
+
+
+
+body{
+	display: grid;
+	grid-gap: 0;
+	grid-template-areas:
+		"header"
+		"vinstri"
+		"content"
+		"haegri"
+		"footer";
+}
+header{
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	background-color: #00FF62;
+	padding: 1em;
+}
+.wrapper{
+	display: grid;
+	grid-gap: 0;
+	grid-template-areas:
+		"vinstri content haegri";
+	grid-template-columns: 1fr 2fr;
+}
+body{
+	display: grid;
+	max-width: 60em;
+	margin: 0 auto;
+	background-color: #132928;
+}
+.sidebar{
+	background-color: #FFE35F;
+	justify-content: center;
+	align-items: center;
+	padding: 1em;
+}
+.sidebar2{
+	background-color: #E8C19A;
+	justify-content: center;
+	align-items: center;
+	padding: 1em;
+}
+.content{
+	background-color: #FF6056;
+	justify-content: center;
+	align-items: center;
+	padding: 1em;
+}
+footer{
+	background-color: #A4E84B;
+	justify-content: center;
+	align-items: center;
+	padding: .5em;
+}
+.lobSter {
+	font-family: 'Lobster', cursive;
+}
+.ptSans {
+	font-family: 'PT Sans Caption', sans-serif;
+}
+
